@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:physics_feed/utils/app_theme.dart';
-import 'package:physics_feed/views/splash/splash_view.dart';
+import 'package:physics_feed/core/theme/app_theme.dart';
+import 'package:physics_feed/core/theme/theme_viewmodel.dart';
+import 'package:physics_feed/views/dashboard/dashboard_view.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,18 +15,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-  create: (_) => MyAppTheme(),
-  child: Builder(
-    builder: (context) {
-      return MaterialApp(
-        theme: MyAppTheme.lightTheme,
-        darkTheme: MyAppTheme.darkTheme,
-      themeMode: context.watch<MyAppTheme>().themeMode,
-        title: 'Physics Feeds',
-        home: const SplashView(),
-      );
-    },
-  ),
-);
-}
+      create: (_) => ThemeViewModel(),
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: context.watch<ThemeViewModel>().themeMode,
+            title: 'Physics Feeds',
+            home: const DashboardView(),
+          );
+        },
+      ),
+    );
+  }
 }
