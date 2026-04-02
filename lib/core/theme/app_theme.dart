@@ -16,7 +16,7 @@ class AppTheme {
   static final ThemeData lightTheme = _buildTheme(_lightColorScheme);
   static final ThemeData darkTheme = _buildTheme(_darkColorScheme);
 
-  // 🔥 Common Theme Builder 
+  // 🔥 Common Theme Builder
   static ThemeData _buildTheme(ColorScheme scheme) {
     final base = ThemeData.from(colorScheme: scheme, useMaterial3: true);
 
@@ -38,9 +38,17 @@ class AppTheme {
 
       // ✅ Text Theme (consistent for both modes)
       textTheme: base.textTheme.copyWith(
-        titleLarge: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        titleMedium: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-        bodyMedium: const TextStyle(fontSize: 14),
+        titleLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: scheme.onSurface,
+        ),
+        titleMedium: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: scheme.onSurface,
+        ),
+        bodyMedium: TextStyle(fontSize: 14, color: scheme.onSurface),
         bodySmall: const TextStyle(fontSize: 12),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
