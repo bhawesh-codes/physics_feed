@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 
@@ -22,7 +23,9 @@ class HomeViewModel extends ChangeNotifier{
     try {
       _article = await _repository.fetchArticles();
       
-    } catch (e) {
+    } on AppException catch (e) {
+      error = e.message;}
+      catch (e) {
       error = 'Failed to load articles: $e';
       _article = null;
     } 

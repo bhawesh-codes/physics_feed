@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 
@@ -20,9 +21,11 @@ class ArticleDetailViewmodel extends ChangeNotifier {
       _articleDetail = await _repository.fetchArticleDetail(slug);
       error = null;
       
+    } on AppException catch (e) {
+      error = e.message;
     } catch (e) {
       _articleDetail = null;
-      throw Exception(e.toString());
+      error = 'Failed to load article details: $e';
     }
     isLoading = false;
     notifyListeners();

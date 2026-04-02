@@ -1,14 +1,13 @@
+import 'package:physics_feed/core/error/error_handler.dart';
 import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
 import 'package:physics_feed/services/api_service.dart';
 
-// Contract — defines what any ArticleRepository must be able to do
 abstract class ArticleRepositoryBase {
   Future<ArticleModel> fetchArticles();
   Future<ArticleDetailModel> fetchArticleDetail(String slug);
 }
 
-// Real implementation
 class ArticleRepository implements ArticleRepositoryBase {
   final ApiService _apiService;
 
@@ -20,7 +19,7 @@ class ArticleRepository implements ArticleRepositoryBase {
     try {
       return await _apiService.getArticle();
     } catch (e) {
-      throw Exception('Failed to fetch articles: $e');
+      throw ErrorHandler.handle(e); // re-wraps if something slipped through
     }
   }
 
@@ -29,7 +28,7 @@ class ArticleRepository implements ArticleRepositoryBase {
     try {
       return await _apiService.getArticleDetail(slug);
     } catch (e) {
-      throw Exception('Failed to fetch article detail: $e');
+      throw ErrorHandler.handle(e);
     }
   }
 }
