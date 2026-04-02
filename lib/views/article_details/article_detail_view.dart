@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/views/article_details/article_detail_viewmodel.dart';
 import 'package:physics_feed/views/article_details/widgets/article_detail_body.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class ArticleDetailView extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     return ChangeNotifierProvider(
-      create: (_) => ArticleDetailViewmodel()..fetchArticleDetail(slug),
+      create: (_) => ArticleDetailViewmodel(ServiceLocator.articleRepository)..fetchArticleDetail(slug),
       builder: (context, child) {
         final vm = context.watch<ArticleDetailViewmodel>();
 
