@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/views/splash/splash_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({super.key});
+  const BottomNavBar({super.key, required this.pageIndex});
+
+  final int pageIndex;
 
   @override
   Widget build(BuildContext context) {
+    
     final colors = Theme.of(context).colorScheme;
 
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      currentIndex: 0,
+      onTap: context.read<SplashViewmodel>().changePageIndex,
+      currentIndex: pageIndex,
       backgroundColor: colors.primaryContainer,
       selectedItemColor: colors.onSurface,
       unselectedItemColor: colors.onSurface.withAlpha(150),
