@@ -6,8 +6,8 @@ import 'package:physics_feed/repository/article_repository.dart';
 class HomeViewModel extends ChangeNotifier{
   final ArticleRepository _repository;
 
-  HomeViewModel({ArticleRepository? repository})
-    : _repository = repository ?? ArticleRepository();
+  HomeViewModel(this._repository);
+    // : _repository = repository ?? ArticleRepository();
 
   
   bool isLoading = false;

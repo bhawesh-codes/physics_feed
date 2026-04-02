@@ -11,8 +11,8 @@ abstract class ArticleRepositoryBase {
 class ArticleRepository implements ArticleRepositoryBase {
   final ApiService _apiService;
 
-  ArticleRepository({ApiService? apiService})
-    : _apiService = apiService ?? ApiService();
+  ArticleRepository(this._apiService);
+    // : _apiService = apiService ?? ApiService();
 
   @override
   Future<ArticleModel> fetchArticles() async {
