@@ -20,7 +20,10 @@ class ArticleDetailView extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Details Screen', style: textTheme.titleLarge),
+            title: Text(
+              'Details Screen',
+              style: textTheme.titleLarge!.copyWith(color: colors.onPrimary),
+            ),
           ),
           body: Builder(
             builder: (context) {
