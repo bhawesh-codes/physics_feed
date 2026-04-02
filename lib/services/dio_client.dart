@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:physics_feed/const/api_url.dart';
+import 'package:physics_feed/core/const/api_url.dart';
 
 
 
