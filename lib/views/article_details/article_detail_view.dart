@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/views/article_details/article_detail_viewmodel.dart';
 import 'package:physics_feed/views/article_details/widgets/article_detail_body.dart';
@@ -11,8 +12,6 @@ class ArticleDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
 
     return ChangeNotifierProvider(
       create: (_) => ArticleDetailViewmodel(ServiceLocator.articleRepository)..fetchArticleDetail(slug),
@@ -23,14 +22,14 @@ class ArticleDetailView extends StatelessWidget {
           appBar: AppBar(
             title: Text(
               'Details Screen',
-              style: textTheme.titleLarge!.copyWith(color: colors.onPrimary),
+              style: context.titleLarge!.copyWith(color: context.colors.onPrimary),
             ),
           ),
           body: Builder(
             builder: (context) {
               if (vm.isLoading) {
                 return Center(
-                  child: CircularProgressIndicator(color: colors.primary),
+                  child: CircularProgressIndicator(color: context.primaryColor),
                 );
               }
 
@@ -38,14 +37,14 @@ class ArticleDetailView extends StatelessWidget {
                 return Center(
                   child: Text(
                     vm.error!,
-                    style: textTheme.bodyMedium!.copyWith(color: Colors.red),
+                    style: context.bodyMedium!.copyWith(color: Colors.red),
                   ),
                 );
               }
 
               if (vm.articleDetail == null) {
                 return Center(
-                  child: Text("No data", style: textTheme.bodyMedium),
+                  child: Text("No data", style: context.bodyMedium),
                 );
               }
 

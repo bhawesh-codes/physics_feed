@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/theme/theme_extension.dart';
 
 class ArticleCardContent extends StatelessWidget {
   final String title;
@@ -12,20 +13,19 @@ class ArticleCardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
 
     return ListTile(
       title: Text(
         title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.titleMedium,
+        style: context.textStyle.titleMedium,
       ),
       subtitle: Text(
         excerpt,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyMedium,
+        style: context.bodyMedium,
       ),
     );
   }

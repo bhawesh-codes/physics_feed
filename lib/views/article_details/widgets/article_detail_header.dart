@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/theme/theme_extension.dart';
 
 class ArticleDetailHeader extends StatelessWidget {
   final String title;
@@ -7,8 +8,8 @@ class ArticleDetailHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+   
 
-    return Text(title, style: textTheme.titleLarge);
+    return Text(title, style: context.titleLarge);
   }
 }

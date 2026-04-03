@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/views/home/home_view_model.dart';
 import 'package:physics_feed/views/home/widgets/article_list.dart' show ArticleList;
@@ -13,15 +14,15 @@ class HomeView extends StatelessWidget {
       create: (context) => HomeViewModel(ServiceLocator.articleRepository)..fetchArticles(),
       builder: (context, child) {
         final vm = context.watch<HomeViewModel>();
-        final colors = Theme.of(context).colorScheme;
-        final textTheme = Theme.of(context).textTheme;
+        // final colors = Theme.of(context).colorScheme;
+        // final textTheme = Theme.of(context).textTheme;
 
         return Scaffold(
           body: Builder(
             builder: (context) {
               if (vm.isLoading) {
                 return Center(
-                  child: CircularProgressIndicator(color: colors.primary),
+                  child: CircularProgressIndicator(color: context.primaryColor),
                 );
               }
 
@@ -29,7 +30,7 @@ class HomeView extends StatelessWidget {
                 return Center(
                   child: Text(
                     vm.error!,
-                    style: textTheme.bodyMedium!.copyWith(color: Colors.red),
+                    style: context.bodyMedium!.copyWith(color: Colors.red),
                   ),
                 );
               }
@@ -38,7 +39,7 @@ class HomeView extends StatelessWidget {
                   vm.article!.results == null ||
                   vm.article!.results!.isEmpty) {
                 return Center(
-                  child: Text("No data", style: textTheme.bodyMedium),
+                  child: Text("No data", style: context.bodyMedium),
                 );
               }
 

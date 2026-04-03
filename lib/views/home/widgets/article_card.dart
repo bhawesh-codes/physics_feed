@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/views/home/widgets/article_card_content.dart';
 import 'package:physics_feed/views/home/widgets/article_card_image.dart';
 
@@ -10,7 +11,6 @@ class ArticleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -20,7 +20,7 @@ class ArticleCard extends StatelessWidget {
           height: 250,
           width: double.infinity,
           decoration: BoxDecoration(
-            border: Border.all(color: colors.outline),
+            border: Border.all(color: context.colors.outline),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(

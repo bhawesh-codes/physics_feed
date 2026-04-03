@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/core/theme/theme_extension.dart';
 
 class ArticleCardImage extends StatelessWidget {
   final String? imageUrl;
@@ -7,14 +8,13 @@ class ArticleCardImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
 
     if (imageUrl == null) {
       return Container(
         height: 150,
         width: double.infinity,
-        color: colors.surfaceContainerHighest,
-        child: Icon(Icons.image, size: 50, color: colors.onSurfaceVariant),
+        color: context.colors.surfaceContainerHighest,
+        child: Icon(Icons.image, size: 50, color: context.colors.onSurfaceVariant),
       );
     }
 
