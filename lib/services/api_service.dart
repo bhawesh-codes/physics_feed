@@ -5,11 +5,12 @@ import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/services/dio_client.dart';
 
 class ApiService {
-  final Dio _dioClient = DioClient().dio;
+  final Dio _dio;
+   ApiService({Dio? dio}) : _dio = dio ?? DioClient().dio;
 
   Future<ArticleModel> getArticle() async {
     try {
-      final response = await _dioClient.get('article?page=1');
+      final response = await _dio.get('article?page=1');
       return ArticleModel.fromJson(response.data);
     } catch (e) {
       throw ErrorHandler.handle(e); // throws AppException
@@ -18,7 +19,7 @@ class ApiService {
 
   Future<ArticleDetailModel> getArticleDetail(String slug) async {
     try {
-      final response = await _dioClient.get('article/$slug');
+      final response = await _dio.get('article/$slug');
       return ArticleDetailModel.fromJson(response.data);
     } catch (e) {
       throw ErrorHandler.handle(e);
