@@ -4,10 +4,10 @@ import 'package:physics_feed/models/article_detail_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 
 class ArticleDetailViewmodel extends ChangeNotifier {
-   final ArticleRepository repository;
+  final ArticleRepository repository;
 
   ArticleDetailViewmodel(this.repository);
-      // : _repository = repository ?? ArticleRepository();
+  // : _repository = repository ?? ArticleRepository();
   bool isLoading = false;
   ArticleDetailModel? _articleDetail;
   ArticleDetailModel? get articleDetail => _articleDetail;
@@ -20,7 +20,6 @@ class ArticleDetailViewmodel extends ChangeNotifier {
     try {
       _articleDetail = await repository.fetchArticleDetail(slug);
       error = null;
-      
     } on AppException catch (e) {
       error = e.message;
     } catch (e) {
