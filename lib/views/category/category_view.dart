@@ -42,67 +42,80 @@ class CategoryView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(12),
-                    child: Container(
-                      height: 310,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: context.colors.outline),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Column(
-                        children: [
-                          vm.category[index]!.image == null
-                              ? Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(12),
-                                      
+                    child: GestureDetector(
+                      onTap: () => context
+                          .read<CategoryViewmodel>()
+                          .navigateToFilterArticle(
+                            slug: vm.category[index]!.slug!,
+                          ),
+                      child: Container(
+                        height: 310,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: context.colors.outline),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          children: [
+                            vm.category[index]!.image == null
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(12),
+                                      ),
+                                      color: context
+                                          .colors
+                                          .surfaceContainerHighest,
                                     ),
-                                    color: context.colors.onSurfaceVariant
-                                        .withAlpha(150),
-                                  ),
-                                  height: 180,
-                                  width: double.infinity,
-                                  
-                                )
-                              : ClipRRect(
-                                  borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(12),
-                                  ),
-                                  child: Image.network(
-                                    vm.category[index]!.image ?? '',
                                     height: 180,
                                     width: double.infinity,
-                                    fit: BoxFit.fill,
+                                    child: Icon(
+                                      Icons.image,
+                                      size: 50,
+                                      color: context.colors.onSurfaceVariant,
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(12),
+                                    ),
+                                    child: Image.network(
+                                      vm.category[index]!.image ?? '',
+                                      height: 180,
+                                      width: double.infinity,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                ),
 
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: .start,
-                              children: [
-                                Text(
-                                  vm.category[index]!.name ?? "",
-                                  style: context.textStyle.titleMedium,
-                                ),
-                                Text(
-                                  vm.category[index]!.description ?? "",
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  style: context.bodyMedium,
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  "${vm.category[index]!.articleCount.toString()} articles",
-                                  style: context.textStyle.bodySmall!.copyWith(
-                                    color: context.colors.onSurfaceVariant,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: .start,
+                                children: [
+                                  Text(
+                                    vm.category[index]!.name ?? "",
+                                    style: context.textStyle.titleMedium,
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    vm.category[index]!.description ?? "",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    style: context.bodyMedium,
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    "${vm.category[index]!.articleCount.toString()} articles",
+                                    style: context.textStyle.bodySmall!
+                                        .copyWith(
+                                          color:
+                                              context.colors.onSurfaceVariant,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
