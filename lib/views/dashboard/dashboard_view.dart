@@ -4,6 +4,7 @@ import 'package:physics_feed/views/home/home_view.dart';
 import 'package:physics_feed/views/dashboard/dashboard_viewmodel.dart';
 import 'package:physics_feed/views/dashboard/widgets/bottom_nav_bar.dart';
 import 'package:physics_feed/views/dashboard/widgets/my_appbar.dart';
+import 'package:physics_feed/views/tags/tag_view.dart';
 import 'package:provider/provider.dart';
 
 class DashboardView extends StatelessWidget {
@@ -14,7 +15,7 @@ class DashboardView extends StatelessWidget {
     List<Widget> screen = [
       HomeView(),
       CategoryView(),
-      const Center(child: Text('Tags')),
+      TagView(),
       const Center(child: Text('Authors')),
     ];
     return ChangeNotifierProvider<DashboardViewmodel>(
