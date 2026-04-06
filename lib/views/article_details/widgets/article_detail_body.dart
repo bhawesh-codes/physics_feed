@@ -5,7 +5,7 @@ import 'package:physics_feed/views/article_details/widgets/article_detail_header
 import 'package:physics_feed/views/article_details/widgets/article_detail_image.dart';
 
 class ArticleDetailBody extends StatelessWidget {
-  final  ArticleDetailModel article;
+  final ArticleDetailModel article;
 
   const ArticleDetailBody({super.key, required this.article});
 
