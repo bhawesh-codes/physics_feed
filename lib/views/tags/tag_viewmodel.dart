@@ -3,7 +3,7 @@ import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
 import 'package:physics_feed/models/tag_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
-import 'package:physics_feed/views/filter_article/filter_article_view.dart';
+import 'package:physics_feed/views/tag_filter/tag_filter_view.dart';
 
 class TagViewmodel extends ChangeNotifier {
   final ArticleRepository repository;
@@ -32,9 +32,9 @@ class TagViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateToFilterArticle({required String slug}) {
+  void navigateToTagFilter({required String slug}) {
     AppRouter.navigatorKey.currentState?.push(
-      MaterialPageRoute(builder: (_) => FilterArticleView(slug: slug)),
+      MaterialPageRoute(builder: (_) => TagFilterView(slug: slug)),
     );
   }
 }
