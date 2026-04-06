@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/views/author/author_view.dart';
 import 'package:physics_feed/views/category/category_view.dart';
 import 'package:physics_feed/views/home/home_view.dart';
 import 'package:physics_feed/views/dashboard/dashboard_viewmodel.dart';
@@ -12,12 +13,7 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> screen = [
-      HomeView(),
-      CategoryView(),
-      TagView(),
-      const Center(child: Text('Authors')),
-    ];
+    List<Widget> screen = [HomeView(), CategoryView(), TagView(), AuthorView()];
     return ChangeNotifierProvider<DashboardViewmodel>(
       create: (context) => DashboardViewmodel(),
       child: Builder(
