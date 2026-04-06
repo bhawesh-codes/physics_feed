@@ -1,15 +1,17 @@
 import 'package:physics_feed/core/error/error_handler.dart';
 import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
-import 'package:physics_feed/services/api_service.dart';
+import 'package:physics_feed/models/category_model.dart';
+import 'package:physics_feed/services/article_api_client.dart';
 
 abstract class ArticleRepositoryBase {
   Future<ArticleModel> fetchArticles();
   Future<ArticleDetailModel> fetchArticleDetail(String slug);
+  Future<List<CategoryModel>> fetchCategories();
 }
 
 class ArticleRepository implements ArticleRepositoryBase {
-  final ApiService _apiService;
+  final ArticleApiClient _apiService;
 
   ArticleRepository(this._apiService);
     // : _apiService = apiService ?? ApiService();
@@ -17,7 +19,7 @@ class ArticleRepository implements ArticleRepositoryBase {
   @override
   Future<ArticleModel> fetchArticles() async {
     try {
-      return await _apiService.getArticle();
+      return await _apiService.getArticles(1);
     } catch (e) {
       throw ErrorHandler.handle(e); // re-wraps if something slipped through
     }
@@ -31,4 +33,12 @@ class ArticleRepository implements ArticleRepositoryBase {
       throw ErrorHandler.handle(e);
     }
   }
+  @override
+  Future<List<CategoryModel>> fetchCategories() async {
+    try {
+      return await _apiService.getCategories();
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+}
 }
