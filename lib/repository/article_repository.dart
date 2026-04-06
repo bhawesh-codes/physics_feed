@@ -2,12 +2,14 @@ import 'package:physics_feed/core/error/error_handler.dart';
 import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
 import 'package:physics_feed/models/category_model.dart';
+import 'package:physics_feed/models/filter_article_model.dart';
 import 'package:physics_feed/services/article_api_client.dart';
 
 abstract class ArticleRepositoryBase {
   Future<ArticleModel> fetchArticles();
   Future<ArticleDetailModel> fetchArticleDetail(String slug);
   Future<List<CategoryModel>> fetchCategories();
+  Future<FilterArticleModel> fetchFilterArticle(String slug); 
 }
 
 class ArticleRepository implements ArticleRepositoryBase {
@@ -41,4 +43,13 @@ class ArticleRepository implements ArticleRepositoryBase {
       throw ErrorHandler.handle(e);
     }
 }
+
+  @override
+  Future<FilterArticleModel> fetchFilterArticle(String slug) {
+    try {
+      return _apiService.getFilterArticles(slug, 1);
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
 }
