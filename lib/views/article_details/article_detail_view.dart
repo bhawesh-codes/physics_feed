@@ -14,7 +14,7 @@ class ArticleDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ChangeNotifierProvider(
-      create: (_) => ArticleDetailViewmodel(ServiceLocator.articleRepository)..fetchArticleDetail(slug),
+      create: (_) => sl<ArticleDetailViewmodel>()..fetchArticleDetail(slug),
       builder: (context, child) {
         final vm = context.watch<ArticleDetailViewmodel>();
 
