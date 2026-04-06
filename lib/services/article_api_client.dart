@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:physics_feed/models/category_model.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
+import 'package:physics_feed/models/tag_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
@@ -25,4 +26,7 @@ abstract class ArticleApiClient {
     @Path('slug') String slug,
     @Query('page') int page,
   );
+
+  @GET('tag')
+  Future<List<TagModel>> getTags();
 }
