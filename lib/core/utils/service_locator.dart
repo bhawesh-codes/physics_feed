@@ -4,6 +4,7 @@ import 'package:physics_feed/repository/article_repository.dart';
 import 'package:physics_feed/services/article_api_client.dart';
 import 'package:physics_feed/services/dio_client.dart';
 import 'package:physics_feed/views/article_details/article_detail_viewmodel.dart';
+import 'package:physics_feed/views/author/author_viewmodel.dart';
 import 'package:physics_feed/views/category/category_viewmodel.dart';
 import 'package:physics_feed/views/filter_article/filter_article_viewmodel.dart';
 import 'package:physics_feed/views/home/home_view_model.dart';
@@ -24,4 +25,5 @@ void setupLocator() {
   sl.registerFactory<CategoryViewmodel>(() => CategoryViewmodel(sl()));
   sl.registerFactory<FilterArticleViewmodel>(() => FilterArticleViewmodel(sl()));
   sl.registerFactory<TagViewmodel>(() => TagViewmodel(sl()));
+  sl.registerFactory<AuthorViewmodel>(() => AuthorViewmodel(sl()));
 }
