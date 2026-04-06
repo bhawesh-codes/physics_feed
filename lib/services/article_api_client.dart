@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:physics_feed/models/author_model.dart';
 import 'package:physics_feed/models/category_model.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
 import 'package:physics_feed/models/tag_model.dart';
@@ -29,4 +30,7 @@ abstract class ArticleApiClient {
 
   @GET('tag')
   Future<List<TagModel>> getTags();
+
+  @GET('author')
+  Future<List<AuthorModel>> getAuthor();
 }
