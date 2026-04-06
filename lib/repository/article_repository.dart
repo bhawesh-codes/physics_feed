@@ -1,6 +1,7 @@
 import 'package:physics_feed/core/error/error_handler.dart';
 import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
+import 'package:physics_feed/models/author_model.dart';
 import 'package:physics_feed/models/category_model.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
 import 'package:physics_feed/models/tag_model.dart';
@@ -12,6 +13,7 @@ abstract class ArticleRepositoryBase {
   Future<List<CategoryModel>> fetchCategories();
   Future<FilterArticleModel> fetchFilterArticle(String slug); 
   Future<List<TagModel>> fetchTags(); 
+  Future<List<AuthorModel>> fetchAuthor();
 }
 
 class ArticleRepository implements ArticleRepositoryBase {
@@ -59,6 +61,15 @@ class ArticleRepository implements ArticleRepositoryBase {
   Future<List<TagModel>> fetchTags() {
     try {
       return _apiService.getTags();
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+  
+  @override
+  Future<List<AuthorModel>> fetchAuthor() {
+    try{
+      return _apiService.getAuthor();
     } catch (e) {
       throw ErrorHandler.handle(e);
     }
