@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:physics_feed/models/author_model.dart';
 import 'package:physics_feed/models/category_model.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
+import 'package:physics_feed/models/tag_filter_model.dart';
 import 'package:physics_feed/models/tag_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:physics_feed/models/article_model.dart';
@@ -33,4 +34,7 @@ abstract class ArticleApiClient {
 
   @GET('author')
   Future<List<AuthorModel>> getAuthor();
+
+  @GET('tag/{slug}')
+  Future<TagFilterModel> getTagFilter(@Path('slug') String slug, @Query('page') int page);
 }
