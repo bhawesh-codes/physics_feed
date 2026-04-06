@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:physics_feed/views/article_details/article_detail_view.dart';
+import 'package:physics_feed/views/home/home_view_model.dart';
 import 'package:physics_feed/views/home/widgets/article_card.dart';
+import 'package:provider/provider.dart';
 
 class ArticleList extends StatelessWidget {
   final List articles;
@@ -15,14 +16,7 @@ class ArticleList extends StatelessWidget {
         final article = articles[index];
         return ArticleCard(
           article: article,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ArticleDetailView(slug: article.slug!),
-              ),
-            );
-          },
+          onTap: () => context.read<HomeViewModel>().navigateToDetail(slug: article.slug!),
         );
       },
     );
