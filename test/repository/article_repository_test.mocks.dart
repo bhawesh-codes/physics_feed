@@ -8,6 +8,7 @@ import 'dart:async' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:physics_feed/models/article_detail_model.dart' as _i3;
 import 'package:physics_feed/models/article_model.dart' as _i2;
+import 'package:physics_feed/models/author_model.dart' as _i9;
 import 'package:physics_feed/models/category_model.dart' as _i7;
 import 'package:physics_feed/models/filter_article_model.dart' as _i4;
 import 'package:physics_feed/models/tag_model.dart' as _i8;
@@ -112,4 +113,14 @@ class MockArticleApiClient extends _i1.Mock implements _i5.ArticleApiClient {
             returnValue: _i6.Future<List<_i8.TagModel>>.value(<_i8.TagModel>[]),
           )
           as _i6.Future<List<_i8.TagModel>>);
+
+  @override
+  _i6.Future<List<_i9.AuthorModel>> getAuthor() =>
+      (super.noSuchMethod(
+            Invocation.method(#getAuthor, []),
+            returnValue: _i6.Future<List<_i9.AuthorModel>>.value(
+              <_i9.AuthorModel>[],
+            ),
+          )
+          as _i6.Future<List<_i9.AuthorModel>>);
 }
