@@ -3,6 +3,7 @@ import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
 import 'package:physics_feed/models/category_model.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
+import 'package:physics_feed/models/tag_model.dart';
 import 'package:physics_feed/services/article_api_client.dart';
 
 abstract class ArticleRepositoryBase {
@@ -10,6 +11,7 @@ abstract class ArticleRepositoryBase {
   Future<ArticleDetailModel> fetchArticleDetail(String slug);
   Future<List<CategoryModel>> fetchCategories();
   Future<FilterArticleModel> fetchFilterArticle(String slug); 
+  Future<List<TagModel>> fetchTags(); 
 }
 
 class ArticleRepository implements ArticleRepositoryBase {
@@ -48,6 +50,15 @@ class ArticleRepository implements ArticleRepositoryBase {
   Future<FilterArticleModel> fetchFilterArticle(String slug) {
     try {
       return _apiService.getFilterArticles(slug, 1);
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+  
+  @override
+  Future<List<TagModel>> fetchTags() {
+    try {
+      return _apiService.getTags();
     } catch (e) {
       throw ErrorHandler.handle(e);
     }
