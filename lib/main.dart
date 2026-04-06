@@ -3,8 +3,10 @@ import 'package:physics_feed/core/theme/app_theme.dart';
 import 'package:physics_feed/core/theme/theme_viewmodel.dart';
 import 'package:physics_feed/views/dashboard/dashboard_view.dart';
 import 'package:provider/provider.dart';
+import 'package:physics_feed/core/utils/service_locator.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
