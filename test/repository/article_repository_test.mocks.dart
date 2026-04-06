@@ -3,16 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:physics_feed/models/article_detail_model.dart' as _i3;
 import 'package:physics_feed/models/article_model.dart' as _i2;
-import 'package:physics_feed/models/author_model.dart' as _i9;
-import 'package:physics_feed/models/category_model.dart' as _i7;
+import 'package:physics_feed/models/author_model.dart' as _i10;
+import 'package:physics_feed/models/category_model.dart' as _i8;
 import 'package:physics_feed/models/filter_article_model.dart' as _i4;
-import 'package:physics_feed/models/tag_model.dart' as _i8;
-import 'package:physics_feed/services/article_api_client.dart' as _i5;
+import 'package:physics_feed/models/tag_filter_model.dart' as _i5;
+import 'package:physics_feed/models/tag_model.dart' as _i9;
+import 'package:physics_feed/services/article_api_client.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -46,81 +47,100 @@ class _FakeFilterArticleModel_2 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
+class _FakeTagFilterModel_3 extends _i1.SmartFake
+    implements _i5.TagFilterModel {
+  _FakeTagFilterModel_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [ArticleApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockArticleApiClient extends _i1.Mock implements _i5.ArticleApiClient {
+class MockArticleApiClient extends _i1.Mock implements _i6.ArticleApiClient {
   MockArticleApiClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i2.ArticleModel> getArticles(int? page) =>
+  _i7.Future<_i2.ArticleModel> getArticles(int? page) =>
       (super.noSuchMethod(
             Invocation.method(#getArticles, [page]),
-            returnValue: _i6.Future<_i2.ArticleModel>.value(
+            returnValue: _i7.Future<_i2.ArticleModel>.value(
               _FakeArticleModel_0(
                 this,
                 Invocation.method(#getArticles, [page]),
               ),
             ),
           )
-          as _i6.Future<_i2.ArticleModel>);
+          as _i7.Future<_i2.ArticleModel>);
 
   @override
-  _i6.Future<_i3.ArticleDetailModel> getArticleDetail(String? slug) =>
+  _i7.Future<_i3.ArticleDetailModel> getArticleDetail(String? slug) =>
       (super.noSuchMethod(
             Invocation.method(#getArticleDetail, [slug]),
-            returnValue: _i6.Future<_i3.ArticleDetailModel>.value(
+            returnValue: _i7.Future<_i3.ArticleDetailModel>.value(
               _FakeArticleDetailModel_1(
                 this,
                 Invocation.method(#getArticleDetail, [slug]),
               ),
             ),
           )
-          as _i6.Future<_i3.ArticleDetailModel>);
+          as _i7.Future<_i3.ArticleDetailModel>);
 
   @override
-  _i6.Future<List<_i7.CategoryModel>> getCategories() =>
+  _i7.Future<List<_i8.CategoryModel>> getCategories() =>
       (super.noSuchMethod(
             Invocation.method(#getCategories, []),
-            returnValue: _i6.Future<List<_i7.CategoryModel>>.value(
-              <_i7.CategoryModel>[],
+            returnValue: _i7.Future<List<_i8.CategoryModel>>.value(
+              <_i8.CategoryModel>[],
             ),
           )
-          as _i6.Future<List<_i7.CategoryModel>>);
+          as _i7.Future<List<_i8.CategoryModel>>);
 
   @override
-  _i6.Future<_i4.FilterArticleModel> getFilterArticles(
+  _i7.Future<_i4.FilterArticleModel> getFilterArticles(
     String? slug,
     int? page,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#getFilterArticles, [slug, page]),
-            returnValue: _i6.Future<_i4.FilterArticleModel>.value(
+            returnValue: _i7.Future<_i4.FilterArticleModel>.value(
               _FakeFilterArticleModel_2(
                 this,
                 Invocation.method(#getFilterArticles, [slug, page]),
               ),
             ),
           )
-          as _i6.Future<_i4.FilterArticleModel>);
+          as _i7.Future<_i4.FilterArticleModel>);
 
   @override
-  _i6.Future<List<_i8.TagModel>> getTags() =>
+  _i7.Future<List<_i9.TagModel>> getTags() =>
       (super.noSuchMethod(
             Invocation.method(#getTags, []),
-            returnValue: _i6.Future<List<_i8.TagModel>>.value(<_i8.TagModel>[]),
+            returnValue: _i7.Future<List<_i9.TagModel>>.value(<_i9.TagModel>[]),
           )
-          as _i6.Future<List<_i8.TagModel>>);
+          as _i7.Future<List<_i9.TagModel>>);
 
   @override
-  _i6.Future<List<_i9.AuthorModel>> getAuthor() =>
+  _i7.Future<List<_i10.AuthorModel>> getAuthor() =>
       (super.noSuchMethod(
             Invocation.method(#getAuthor, []),
-            returnValue: _i6.Future<List<_i9.AuthorModel>>.value(
-              <_i9.AuthorModel>[],
+            returnValue: _i7.Future<List<_i10.AuthorModel>>.value(
+              <_i10.AuthorModel>[],
             ),
           )
-          as _i6.Future<List<_i9.AuthorModel>>);
+          as _i7.Future<List<_i10.AuthorModel>>);
+
+  @override
+  _i7.Future<_i5.TagFilterModel> getTagFilter(String? slug, int? page) =>
+      (super.noSuchMethod(
+            Invocation.method(#getTagFilter, [slug, page]),
+            returnValue: _i7.Future<_i5.TagFilterModel>.value(
+              _FakeTagFilterModel_3(
+                this,
+                Invocation.method(#getTagFilter, [slug, page]),
+              ),
+            ),
+          )
+          as _i7.Future<_i5.TagFilterModel>);
 }
