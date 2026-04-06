@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeViewModel>(
-      create: (context) => HomeViewModel(ServiceLocator.articleRepository)..fetchArticles(),
+      create: (context) => sl<HomeViewModel>()..fetchArticles(),
       builder: (context, child) {
         final vm = context.watch<HomeViewModel>();
         // final colors = Theme.of(context).colorScheme;
