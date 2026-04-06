@@ -3,13 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:physics_feed/models/article_detail_model.dart' as _i3;
 import 'package:physics_feed/models/article_model.dart' as _i2;
-import 'package:physics_feed/models/category_model.dart' as _i6;
-import 'package:physics_feed/services/article_api_client.dart' as _i4;
+import 'package:physics_feed/models/category_model.dart' as _i7;
+import 'package:physics_feed/models/filter_article_model.dart' as _i4;
+import 'package:physics_feed/models/tag_model.dart' as _i8;
+import 'package:physics_feed/services/article_api_client.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -37,47 +39,77 @@ class _FakeArticleDetailModel_1 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
+class _FakeFilterArticleModel_2 extends _i1.SmartFake
+    implements _i4.FilterArticleModel {
+  _FakeFilterArticleModel_2(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [ArticleApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockArticleApiClient extends _i1.Mock implements _i4.ArticleApiClient {
+class MockArticleApiClient extends _i1.Mock implements _i5.ArticleApiClient {
   MockArticleApiClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.ArticleModel> getArticles(int? page) =>
+  _i6.Future<_i2.ArticleModel> getArticles(int? page) =>
       (super.noSuchMethod(
             Invocation.method(#getArticles, [page]),
-            returnValue: _i5.Future<_i2.ArticleModel>.value(
+            returnValue: _i6.Future<_i2.ArticleModel>.value(
               _FakeArticleModel_0(
                 this,
                 Invocation.method(#getArticles, [page]),
               ),
             ),
           )
-          as _i5.Future<_i2.ArticleModel>);
+          as _i6.Future<_i2.ArticleModel>);
 
   @override
-  _i5.Future<_i3.ArticleDetailModel> getArticleDetail(String? slug) =>
+  _i6.Future<_i3.ArticleDetailModel> getArticleDetail(String? slug) =>
       (super.noSuchMethod(
             Invocation.method(#getArticleDetail, [slug]),
-            returnValue: _i5.Future<_i3.ArticleDetailModel>.value(
+            returnValue: _i6.Future<_i3.ArticleDetailModel>.value(
               _FakeArticleDetailModel_1(
                 this,
                 Invocation.method(#getArticleDetail, [slug]),
               ),
             ),
           )
-          as _i5.Future<_i3.ArticleDetailModel>);
+          as _i6.Future<_i3.ArticleDetailModel>);
 
   @override
-  _i5.Future<List<_i6.CategoryModel>> getCategories() =>
+  _i6.Future<List<_i7.CategoryModel>> getCategories() =>
       (super.noSuchMethod(
             Invocation.method(#getCategories, []),
-            returnValue: _i5.Future<List<_i6.CategoryModel>>.value(
-              <_i6.CategoryModel>[],
+            returnValue: _i6.Future<List<_i7.CategoryModel>>.value(
+              <_i7.CategoryModel>[],
             ),
           )
-          as _i5.Future<List<_i6.CategoryModel>>);
+          as _i6.Future<List<_i7.CategoryModel>>);
+
+  @override
+  _i6.Future<_i4.FilterArticleModel> getFilterArticles(
+    String? slug,
+    int? page,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#getFilterArticles, [slug, page]),
+            returnValue: _i6.Future<_i4.FilterArticleModel>.value(
+              _FakeFilterArticleModel_2(
+                this,
+                Invocation.method(#getFilterArticles, [slug, page]),
+              ),
+            ),
+          )
+          as _i6.Future<_i4.FilterArticleModel>);
+
+  @override
+  _i6.Future<List<_i8.TagModel>> getTags() =>
+      (super.noSuchMethod(
+            Invocation.method(#getTags, []),
+            returnValue: _i6.Future<List<_i8.TagModel>>.value(<_i8.TagModel>[]),
+          )
+          as _i6.Future<List<_i8.TagModel>>);
 }
