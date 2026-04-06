@@ -7,6 +7,7 @@ import 'package:physics_feed/views/article_details/article_detail_viewmodel.dart
 import 'package:physics_feed/views/category/category_viewmodel.dart';
 import 'package:physics_feed/views/filter_article/filter_article_viewmodel.dart';
 import 'package:physics_feed/views/home/home_view_model.dart';
+import 'package:physics_feed/views/tags/tag_viewmodel.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -22,4 +23,5 @@ void setupLocator() {
   sl.registerFactory<ArticleDetailViewmodel>(() => ArticleDetailViewmodel(sl()));
   sl.registerFactory<CategoryViewmodel>(() => CategoryViewmodel(sl()));
   sl.registerFactory<FilterArticleViewmodel>(() => FilterArticleViewmodel(sl()));
+  sl.registerFactory<TagViewmodel>(() => TagViewmodel(sl()));
 }
