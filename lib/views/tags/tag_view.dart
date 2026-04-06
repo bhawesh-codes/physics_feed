@@ -50,7 +50,7 @@ class TagView extends StatelessWidget {
                   return GestureDetector(
                     onTap: () => context
                         .read<TagViewmodel>()
-                        .navigateToFilterArticle(slug: vm.tags[index]!.slug!),
+                        .navigateToTagFilter(slug: vm.tags[index]!.slug!),
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
