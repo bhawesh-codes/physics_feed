@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/views/category/category_view.dart';
 import 'package:physics_feed/views/home/home_view.dart';
 import 'package:physics_feed/views/dashboard/dashboard_viewmodel.dart';
 import 'package:physics_feed/views/dashboard/widgets/bottom_nav_bar.dart';
@@ -12,7 +13,7 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> screen = [
       HomeView(),
-      const Center(child: Text('Categories')),
+      CategoryView(),
       const Center(child: Text('Tags')),
       const Center(child: Text('Authors')),
     ];
