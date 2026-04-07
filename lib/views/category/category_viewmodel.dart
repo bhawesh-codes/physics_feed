@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
+import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/category_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 import 'package:physics_feed/views/filter_article/filter_article_view.dart';
 
 class CategoryViewmodel extends ChangeNotifier{
-  final ArticleRepository repository;
+  final _repository = sl<ArticleRepository>();
 
-  CategoryViewmodel(this.repository);
+  CategoryViewmodel();
       // : _repository = repository ?? ArticleRepository();
   bool isLoading = false;
   List<CategoryModel?> _category = [];
@@ -20,7 +21,7 @@ class CategoryViewmodel extends ChangeNotifier{
     error = null;
     notifyListeners();
     try {
-      _category = await repository.fetchCategories();
+      _category = await _repository.fetchCategories();
       error = null;
       
     } on AppException catch (e) {

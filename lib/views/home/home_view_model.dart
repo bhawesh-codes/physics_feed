@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
+import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/article_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 import 'package:physics_feed/views/article_details/article_detail_view.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final ArticleRepository _repository;
+  final _repository = sl<ArticleRepository>();
 
-  HomeViewModel(this._repository);
+  HomeViewModel();
   // : _repository = repository ?? ArticleRepository();
 
   bool isLoading = false;

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/error/app_exception.dart';
+import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 
 class FilterArticleViewmodel extends ChangeNotifier {
-  final ArticleRepository repository;
+    final _repository = sl<ArticleRepository>();
 
-  FilterArticleViewmodel(this.repository);
+  FilterArticleViewmodel();
   // : _repository = repository ?? ArticleRepository();
   bool isLoading = false;
   FilterArticleModel? _filterArticle;
@@ -18,7 +19,7 @@ class FilterArticleViewmodel extends ChangeNotifier {
     error = null;
     notifyListeners();
     try {
-      _filterArticle = await repository.fetchFilterArticle(slug);
+      _filterArticle = await _repository.fetchFilterArticle(slug);
       error = null;
     } on AppException catch (e) {
       error = e.message;

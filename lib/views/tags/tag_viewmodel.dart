@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
+import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/tag_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 import 'package:physics_feed/views/tag_filter/tag_filter_view.dart';
 
 class TagViewmodel extends ChangeNotifier {
-  final ArticleRepository repository;
+  final ArticleRepository _repository = sl<ArticleRepository>();
 
-  TagViewmodel(this.repository);
+  TagViewmodel();
   // : _repository = repository ?? ArticleRepository();
   bool isLoading = false;
   List<TagModel?> _tags = [];
@@ -20,7 +21,7 @@ class TagViewmodel extends ChangeNotifier {
     error = null;
     notifyListeners();
     try {
-      _tags = await repository.fetchTags();
+      _tags = await _repository.fetchTags();
       error = null;
     } on AppException catch (e) {
       error = e.message;

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/error/app_exception.dart';
+import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/tag_filter_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 
 class TagFilterViewmodel extends ChangeNotifier {
-  final ArticleRepository repository;
+  final ArticleRepository _repository = sl<ArticleRepository>();
 
-  TagFilterViewmodel(this.repository);
+  TagFilterViewmodel();
   // : _repository = repository ?? ArticleRepository();
   bool isLoading = false;
   TagFilterModel? _tagFilterArticle ;
@@ -18,7 +19,7 @@ class TagFilterViewmodel extends ChangeNotifier {
     error = null;
     notifyListeners();
     try {
-      _tagFilterArticle = await repository.fetchTagFilter(slug);
+      _tagFilterArticle = await _repository.fetchTagFilter(slug);
       error = null;
     } on AppException catch (e) {
       error = e.message;
