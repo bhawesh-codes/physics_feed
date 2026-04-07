@@ -6,17 +6,10 @@ import 'package:physics_feed/models/category_model.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
 import 'package:physics_feed/models/tag_filter_model.dart';
 import 'package:physics_feed/models/tag_model.dart';
+import 'package:physics_feed/repository/article_repository_base.dart';
 import 'package:physics_feed/services/article_api_client.dart';
 
-abstract class ArticleRepositoryBase {
-  Future<ArticleModel> fetchArticles();
-  Future<ArticleDetailModel> fetchArticleDetail(String slug);
-  Future<List<CategoryModel>> fetchCategories();
-  Future<FilterArticleModel> fetchFilterArticle(String slug); 
-  Future<List<TagModel>> fetchTags(); 
-  Future<List<AuthorModel>> fetchAuthor();
-  Future<TagFilterModel> fetchTagFilter(String slug);
-}
+
 
 class ArticleRepository implements ArticleRepositoryBase {
   final ArticleApiClient _apiService;
