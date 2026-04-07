@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
-import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/views/tags/tag_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +9,7 @@ class TagView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => sl<TagViewmodel>()..fetchTags(),
+      create: (_) => TagViewmodel()..fetchTags(),
       builder: (context, child) {
         final vm = context.watch<TagViewmodel>();
 

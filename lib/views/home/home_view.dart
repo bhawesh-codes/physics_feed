@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
-import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/views/home/home_view_model.dart';
 import 'package:physics_feed/views/home/widgets/article_list.dart' show ArticleList;
 import 'package:provider/provider.dart';
@@ -11,7 +10,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeViewModel>(
-      create: (context) => sl<HomeViewModel>()..fetchArticles(),
+      create: (context) => HomeViewModel()..fetchArticles(),
       builder: (context, child) {
         final vm = context.watch<HomeViewModel>();
         // final colors = Theme.of(context).colorScheme;

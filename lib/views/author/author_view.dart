@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
-import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/views/author/author_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +9,7 @@ class AuthorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => sl<AuthorViewmodel>()..fetchAuthor(),
+      create: (_) => AuthorViewmodel()..fetchAuthor(),
       builder: (context, child) {
         final vm = context.watch<AuthorViewmodel>();
 

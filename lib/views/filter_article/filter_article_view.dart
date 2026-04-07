@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
-import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/views/dashboard/widgets/my_appbar.dart';
 import 'package:physics_feed/views/filter_article/filter_article_viewmodel.dart';
 import 'package:physics_feed/views/filter_article/widgets/article_list.dart'
@@ -15,7 +14,7 @@ class FilterArticleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<FilterArticleViewmodel>(
       create: (context) =>
-          sl<FilterArticleViewmodel>()..fetchFilterArticle(slug),
+          FilterArticleViewmodel()..fetchFilterArticle(slug),
       builder: (context, child) {
         final vm = context.watch<FilterArticleViewmodel>();
         // final colors = Theme.of(context).colorScheme;

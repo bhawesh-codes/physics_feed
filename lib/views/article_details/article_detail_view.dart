@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
-import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/views/article_details/article_detail_viewmodel.dart';
 import 'package:physics_feed/views/article_details/widgets/article_detail_body.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,7 @@ class ArticleDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ChangeNotifierProvider(
-      create: (_) => sl<ArticleDetailViewmodel>()..fetchArticleDetail(slug),
+      create: (_) => ArticleDetailViewmodel()..fetchArticleDetail(slug),
       builder: (context, child) {
         final vm = context.watch<ArticleDetailViewmodel>();
 
