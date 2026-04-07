@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:physics_feed/views/filter_article/filter_article_viewmodel.dart';
 import 'package:physics_feed/views/filter_article/widgets/article_card.dart';
+import 'package:provider/provider.dart';
 
 class ArticleList extends StatelessWidget {
   final List filterArticles;
@@ -14,7 +16,7 @@ class ArticleList extends StatelessWidget {
       itemCount: filterArticles.length,
       itemBuilder: (context, index) {
         final filterArticle = filterArticles[index];
-        return ArticleCard(filterArticle: filterArticle, onTap: () {});
+        return ArticleCard(filterArticle: filterArticle, onTap: () {context.read<FilterArticleViewmodel>().navigateToDetail(slug: filterArticle.slug!);});
       },
     );
   }
