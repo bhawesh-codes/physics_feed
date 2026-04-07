@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/error/app_exception.dart';
+import 'package:physics_feed/core/utils/app_router.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/tag_filter_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
+import 'package:physics_feed/views/article_details/article_detail_view.dart';
 
 class TagFilterViewmodel extends ChangeNotifier {
   final ArticleRepository _repository = sl<ArticleRepository>();
@@ -29,6 +31,11 @@ class TagFilterViewmodel extends ChangeNotifier {
     }
     isLoading = false;
     notifyListeners();
+  }
+  void navigateToDetail({required String slug}) {
+    AppRouter.navigatorKey.currentState?.push(
+      MaterialPageRoute(builder: (_) => ArticleDetailView(slug: slug)),
+    );
   }
 
 }
