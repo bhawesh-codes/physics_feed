@@ -21,11 +21,11 @@ void setupLocator() {
   
   sl.registerLazySingleton<ArticleRepository>(() => ArticleRepository(sl<ArticleApiClient>()));
 
-  sl.registerFactory<HomeViewModel>(() => HomeViewModel(sl()));
-  sl.registerFactory<ArticleDetailViewmodel>(() => ArticleDetailViewmodel(sl()));
-  sl.registerFactory<CategoryViewmodel>(() => CategoryViewmodel(sl()));
-  sl.registerFactory<FilterArticleViewmodel>(() => FilterArticleViewmodel(sl()));
-  sl.registerFactory<TagViewmodel>(() => TagViewmodel(sl()));
-  sl.registerFactory<AuthorViewmodel>(() => AuthorViewmodel(sl()));
-  sl.registerFactory<TagFilterViewmodel>(() => TagFilterViewmodel(sl()));
+  sl.registerFactory<HomeViewModel>(() => HomeViewModel());
+  sl.registerFactory<ArticleDetailViewmodel>(() => ArticleDetailViewmodel());
+  sl.registerFactory<CategoryViewmodel>(() => CategoryViewmodel());
+  sl.registerFactory<FilterArticleViewmodel>(() => FilterArticleViewmodel());
+  sl.registerFactory<TagViewmodel>(() => TagViewmodel());
+  sl.registerFactory<AuthorViewmodel>(() => AuthorViewmodel());
+  sl.registerFactory<TagFilterViewmodel>(() => TagFilterViewmodel());
 }
