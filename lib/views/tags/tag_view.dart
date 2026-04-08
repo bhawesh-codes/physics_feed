@@ -11,27 +11,36 @@ class TagView extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => TagViewmodel()..fetchTags(),
       builder: (context, child) {
-        final vm = context.watch<TagViewmodel>();
+        final isLoading = context.select<TagViewmodel, bool>(
+          (vm) => vm.isLoading,
+        );
+
+        final error = context.select<TagViewmodel, String?>((vm) => vm.error);
+
+        final tags = context.select<TagViewmodel, List?>(
+          (vm) => vm.tags,
+        );
+
 
         return Scaffold(
           body: Builder(
             builder: (context) {
-              if (vm.isLoading) {
+              if (isLoading) {
                 return Center(
                   child: CircularProgressIndicator(color: context.primaryColor),
                 );
               }
 
-              if (vm.error != null) {
+              if (error != null) {
                 return Center(
                   child: Text(
-                    vm.error!,
+                    error,
                     style: context.bodyMedium!.copyWith(color: Colors.red),
                   ),
                 );
               }
 
-              if (vm.tags == []) {
+              if (tags == []) {
                 return Center(
                   child: Text("No data", style: context.bodyMedium),
                 );
@@ -44,12 +53,12 @@ class TagView extends StatelessWidget {
                   crossAxisSpacing: 12,
                   childAspectRatio: 3,
                 ),
-                itemCount: vm.tags.length,
+                itemCount: tags!.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () => context
                         .read<TagViewmodel>()
-                        .navigateToTagFilter(slug: vm.tags[index]!.slug!),
+                        .navigateToTagFilter(slug: tags[index]!.slug!),
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -60,14 +69,14 @@ class TagView extends StatelessWidget {
                         mainAxisAlignment: .spaceAround,
                         children: [
                           Text(
-                            vm.tags[index]!.name ?? "No name",
+                            tags[index]!.name ?? "No name",
                             style: context.bodyMedium!.copyWith(
                               color: context.colors.onSurface,
                             ),
                           ),
                           // SizedBox(width: 4),
                           Text(
-                            "(${vm.tags[index]!.articleCount ?? 0})",
+                            "(${tags[index]!.articleCount ?? 0})",
                             style: context.textStyle.bodySmall!.copyWith(
                               color: context.colors.onSurfaceVariant,
                             ),

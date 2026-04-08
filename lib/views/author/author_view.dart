@@ -11,27 +11,36 @@ class AuthorView extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => AuthorViewmodel()..fetchAuthor(),
       builder: (context, child) {
-        final vm = context.watch<AuthorViewmodel>();
+        final isLoading = context.select<AuthorViewmodel, bool>(
+          (vm) => vm.isLoading,
+        );
+
+        final error = context.select<AuthorViewmodel, String?>((vm) => vm.error);
+
+        final author = context.select<AuthorViewmodel, List?>(
+          (vm) => vm.authors,
+        );
+
 
         return Scaffold(
           body: Builder(
             builder: (context) {
-              if (vm.isLoading) {
+              if (isLoading) {
                 return Center(
                   child: CircularProgressIndicator(color: context.primaryColor),
                 );
               }
 
-              if (vm.error != null) {
+              if (error != null) {
                 return Center(
                   child: Text(
-                    vm.error!,
+                    error,
                     style: context.bodyMedium!.copyWith(color: Colors.red),
                   ),
                 );
               }
 
-              if (vm.authors == []) {
+              if (author == []) {
                 return Center(
                   child: Text("No data", style: context.bodyMedium),
                 );
@@ -44,12 +53,12 @@ class AuthorView extends StatelessWidget {
                       Text("Author", style: context.textStyle.titleMedium),
                       SizedBox(height: 10),
                       Text(
-                        vm.authors[0]!.name ?? "No name",
+                        author![0].name ?? "No name",
                         style: context.titleLarge,
                       ),
                       SizedBox(height: 10),
                       Text('Description', style: context.textStyle.titleMedium),
-                      Text(vm.authors[0]!.description ?? "No description"),
+                      Text(author[0].description ?? "No description"),
                     ],
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
+import 'package:physics_feed/models/filter_article_model.dart';
 import 'package:physics_feed/views/dashboard/widgets/my_appbar.dart';
 import 'package:physics_feed/views/filter_article/filter_article_viewmodel.dart';
 import 'package:physics_feed/views/filter_article/widgets/article_list.dart'
@@ -16,32 +17,38 @@ class FilterArticleView extends StatelessWidget {
       create: (context) =>
           FilterArticleViewmodel()..fetchFilterArticle(slug),
       builder: (context, child) {
-        final vm = context.watch<FilterArticleViewmodel>();
-        // final colors = Theme.of(context).colorScheme;
-        // final textTheme = Theme.of(context).textTheme;
+       final isLoading = context.select<FilterArticleViewmodel, bool>(
+          (vm) => vm.isLoading,
+        );
+
+        final error = context.select<FilterArticleViewmodel, String?>((vm) => vm.error);
+
+        final filterArticle = context.select<FilterArticleViewmodel, FilterArticleModel?>(
+          (vm) => vm.filterArticle,
+        );
 
         return Scaffold(
           appBar: MyAppBar(),
           body: Builder(
             builder: (context) {
-              if (vm.isLoading) {
+              if (isLoading) {
                 return Center(
                   child: CircularProgressIndicator(color: context.primaryColor),
                 );
               }
 
-              if (vm.error != null) {
+              if (error != null) {
                 return Center(
                   child: Text(
-                    vm.error!,
+                    error,
                     style: context.bodyMedium!.copyWith(color: Colors.red),
                   ),
                 );
               }
 
-              if (vm.filterArticle == null ||
-                  vm.filterArticle!.articles == null ||
-                  vm.filterArticle!.articles!.results!.isEmpty) {
+              if (filterArticle == null ||
+                  filterArticle.articles == null ||
+                  filterArticle.articles!.results!.isEmpty) {
                 return Center(
                   child: Text("No data", style: context.bodyMedium),
                 );
@@ -52,11 +59,11 @@ class FilterArticleView extends StatelessWidget {
                 child: ListView(
                   children: [
                     Text(
-                      'Articles under categorty ${vm.filterArticle!.name}',
+                      'Articles under categorty ${filterArticle.name}',
                       style: context.titleLarge,
                     ),
                     ArticleList(
-                      filterArticles: vm.filterArticle!.articles!.results!,
+                      filterArticles: filterArticle.articles!.results!,
                     ),
                   ],
                 ),

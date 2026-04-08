@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
+import 'package:physics_feed/models/tag_filter_model.dart';
 import 'package:physics_feed/views/dashboard/widgets/my_appbar.dart';
 import 'package:physics_feed/views/tag_filter/widgets/article_list.dart'
     show ArticleList;
@@ -15,32 +16,39 @@ class TagFilterView extends StatelessWidget {
     return ChangeNotifierProvider<TagFilterViewmodel>(
       create: (context) => TagFilterViewmodel()..fetchTags(slug),
       builder: (context, child) {
-        final vm = context.watch<TagFilterViewmodel>();
-        // final colors = Theme.of(context).colorScheme;
-        // final textTheme = Theme.of(context).textTheme;
+        final isLoading = context.select<TagFilterViewmodel, bool>(
+          (vm) => vm.isLoading,
+        );
+
+        final error = context.select<TagFilterViewmodel, String?>((vm) => vm.error);
+
+        final tagFilterArticle = context.select<TagFilterViewmodel, TagFilterModel?>(
+          (vm) => vm.tagFilterArticle,
+        );
+
 
         return Scaffold(
           appBar: MyAppBar(),
           body: Builder(
             builder: (context) {
-              if (vm.isLoading) {
+              if (isLoading) {
                 return Center(
                   child: CircularProgressIndicator(color: context.primaryColor),
                 );
               }
 
-              if (vm.error != null) {
+              if (error != null) {
                 return Center(
                   child: Text(
-                    vm.error!,
+                    error,
                     style: context.bodyMedium!.copyWith(color: Colors.red),
                   ),
                 );
               }
 
-              if (vm.tagFilterArticle == null ||
-                  vm.tagFilterArticle!.articles == null ||
-                  vm.tagFilterArticle!.articles!.results!.isEmpty) {
+              if (tagFilterArticle == null ||
+                  tagFilterArticle.articles == null ||
+                  tagFilterArticle.articles!.results!.isEmpty) {
                 return Center(
                   child: Text("No data", style: context.bodyMedium),
                 );
@@ -51,12 +59,12 @@ class TagFilterView extends StatelessWidget {
                 child: ListView(
                   children: [
                     Text(
-                      'Articles under tag ${vm.tagFilterArticle!.name}',
+                      'Articles under tag ${tagFilterArticle.name}',
                       style: context.titleLarge,
                     ),
                     ArticleList(
                       tagFilterArticles:
-                          vm.tagFilterArticle!.articles!.results!,
+                          tagFilterArticle.articles!.results!,
                     ),
                   ],
                 ),

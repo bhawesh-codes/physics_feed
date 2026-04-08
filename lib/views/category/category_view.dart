@@ -11,33 +11,42 @@ class CategoryView extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => CategoryViewmodel()..fetchCategory(),
       builder: (context, child) {
-        final vm = context.watch<CategoryViewmodel>();
+       final isLoading = context.select<CategoryViewmodel, bool>(
+          (vm) => vm.isLoading,
+        );
+
+        final error = context.select<CategoryViewmodel, String?>((vm) => vm.error);
+
+        final category = context.select<CategoryViewmodel, List?>(
+          (vm) => vm.category,
+        );
+
 
         return Scaffold(
           body: Builder(
             builder: (context) {
-              if (vm.isLoading) {
+              if (isLoading) {
                 return Center(
                   child: CircularProgressIndicator(color: context.primaryColor),
                 );
               }
 
-              if (vm.error != null) {
+              if (error != null) {
                 return Center(
                   child: Text(
-                    vm.error!,
+                    error,
                     style: context.bodyMedium!.copyWith(color: Colors.red),
                   ),
                 );
               }
 
-              if (vm.category == []) {
+              if (category == []) {
                 return Center(
                   child: Text("No data", style: context.bodyMedium),
                 );
               }
               return ListView.builder(
-                itemCount: vm.category.length,
+                itemCount: category!.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(12),
@@ -45,7 +54,7 @@ class CategoryView extends StatelessWidget {
                       onTap: () => context
                           .read<CategoryViewmodel>()
                           .navigateToFilterArticle(
-                            slug: vm.category[index]!.slug!,
+                            slug: category[index]!.slug!,
                           ),
                       child: Container(
                         height: 310,
@@ -56,7 +65,7 @@ class CategoryView extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            vm.category[index]!.image == null
+                            category[index]!.image == null
                                 ? Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.vertical(
@@ -79,7 +88,7 @@ class CategoryView extends StatelessWidget {
                                       top: Radius.circular(12),
                                     ),
                                     child: Image.network(
-                                      vm.category[index]!.image ?? '',
+                                      category[index]!.image ?? '',
                                       height: 180,
                                       width: double.infinity,
                                       fit: BoxFit.fill,
@@ -92,18 +101,18 @@ class CategoryView extends StatelessWidget {
                                 crossAxisAlignment: .start,
                                 children: [
                                   Text(
-                                    vm.category[index]!.name ?? "",
+                                    category[index]!.name ?? "",
                                     style: context.textStyle.titleMedium,
                                   ),
                                   Text(
-                                    vm.category[index]!.description ?? "",
+                                    category[index]!.description ?? "",
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 3,
                                     style: context.bodyMedium,
                                   ),
                                   SizedBox(height: 8),
                                   Text(
-                                    "${vm.category[index]!.articleCount.toString()} articles",
+                                    "${category[index]!.articleCount.toString()} articles",
                                     style: context.textStyle.bodySmall!
                                         .copyWith(
                                           color:

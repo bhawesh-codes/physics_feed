@@ -10,43 +10,49 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeViewModel>(
-      create: (context) => HomeViewModel()..fetchArticles(),
-      builder: (context, child) {
-        final vm = context.watch<HomeViewModel>();
-        // final colors = Theme.of(context).colorScheme;
-        // final textTheme = Theme.of(context).textTheme;
+      create: (_) => HomeViewModel()..fetchArticles(),
+      child: Scaffold(
+        body: Builder(
+          builder: (context) {
+            final isLoading = context.select<HomeViewModel, bool>(
+              (vm) => vm.isLoading,
+            );
 
-        return Scaffold(
-          body: Builder(
-            builder: (context) {
-              if (vm.isLoading) {
-                return Center(
-                  child: CircularProgressIndicator(color: context.primaryColor),
-                );
-              }
+            final error = context.select<HomeViewModel, String?>(
+              (vm) => vm.error,
+            );
 
-              if (vm.error != null) {
-                return Center(
-                  child: Text(
-                    vm.error!,
-                    style: context.bodyMedium!.copyWith(color: Colors.red),
-                  ),
-                );
-              }
+            final articles = context.select<HomeViewModel, List?>(
+              (vm) => vm.article?.results,
+            );
 
-              if (vm.article == null ||
-                  vm.article!.results == null ||
-                  vm.article!.results!.isEmpty) {
-                return Center(
-                  child: Text("No data", style: context.bodyMedium),
-                );
-              }
+            // 🔹 Loading state
+            if (isLoading) {
+              return Center(
+                child: CircularProgressIndicator(color: context.primaryColor),
+              );
+            }
 
-              return ArticleList(articles: vm.article!.results!);
-            },
-          ),
-        );
-      },
+            // 🔹 Error state
+            if (error != null) {
+              return Center(
+                child: Text(
+                  error,
+                  style: context.bodyMedium!.copyWith(color: Colors.red),
+                ),
+              );
+            }
+
+            // 🔹 Empty state
+            if (articles == null || articles.isEmpty) {
+              return Center(child: Text("No data", style: context.bodyMedium));
+            }
+
+            // 🔹 Success state
+            return ArticleList(articles: articles);
+          },
+        ),
+      ),
     );
   }
 }
