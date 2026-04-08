@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/views/home/home_view_model.dart';
-import 'package:physics_feed/views/home/widgets/article_list.dart' show ArticleList;
+import 'package:physics_feed/views/home/widgets/article_list.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {

@@ -3,13 +3,13 @@ import 'package:get_it/get_it.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 import 'package:physics_feed/services/article_api_client.dart';
 import 'package:physics_feed/services/dio_client.dart';
-import 'package:physics_feed/views/article_details/article_detail_viewmodel.dart';
-import 'package:physics_feed/views/author/author_viewmodel.dart';
-import 'package:physics_feed/views/category/category_viewmodel.dart';
-import 'package:physics_feed/views/filter_article/filter_article_viewmodel.dart';
-import 'package:physics_feed/views/home/home_view_model.dart';
-import 'package:physics_feed/views/tag_filter/tag_filter_viewmodel.dart';
-import 'package:physics_feed/views/tags/tag_viewmodel.dart';
+// import 'package:physics_feed/views/article_details/article_detail_viewmodel.dart';
+// import 'package:physics_feed/views/author/author_viewmodel.dart';
+// import 'package:physics_feed/views/category/category_viewmodel.dart';
+// import 'package:physics_feed/views/filter_article/filter_article_viewmodel.dart';
+// import 'package:physics_feed/views/home/home_view_model.dart';
+// import 'package:physics_feed/views/tag_filter/tag_filter_viewmodel.dart';
+// import 'package:physics_feed/views/tags/tag_viewmodel.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -21,11 +21,11 @@ void setupLocator() {
   
   sl.registerLazySingleton<ArticleRepository>(() => ArticleRepository(sl<ArticleApiClient>()));
 
-  sl.registerFactory<HomeViewModel>(() => HomeViewModel());
-  sl.registerFactory<ArticleDetailViewmodel>(() => ArticleDetailViewmodel());
-  sl.registerFactory<CategoryViewmodel>(() => CategoryViewmodel());
-  sl.registerFactory<FilterArticleViewmodel>(() => FilterArticleViewmodel());
-  sl.registerFactory<TagViewmodel>(() => TagViewmodel());
-  sl.registerFactory<AuthorViewmodel>(() => AuthorViewmodel());
-  sl.registerFactory<TagFilterViewmodel>(() => TagFilterViewmodel());
+  // sl.registerFactory<HomeViewModel>(() => HomeViewModel());
+  // sl.registerFactory<ArticleDetailViewmodel>(() => ArticleDetailViewmodel());
+  // sl.registerFactory<CategoryViewmodel>(() => CategoryViewmodel());
+  // sl.registerFactory<FilterArticleViewmodel>(() => FilterArticleViewmodel());
+  // sl.registerFactory<TagViewmodel>(() => TagViewmodel());
+  // sl.registerFactory<AuthorViewmodel>(() => AuthorViewmodel());
+  // sl.registerFactory<TagFilterViewmodel>(() => TagFilterViewmodel());
 }
