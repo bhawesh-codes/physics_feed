@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/views/tags/tag_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,7 @@ class TagView extends StatelessWidget {
                 );
               }
               return GridView.builder(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.r),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 12,
@@ -63,7 +64,7 @@ class TagView extends StatelessWidget {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         border: Border.all(color: context.colors.outline),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Row(
                         mainAxisAlignment: .spaceAround,

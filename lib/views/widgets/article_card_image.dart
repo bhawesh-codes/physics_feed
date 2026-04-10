@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
 
 class ArticleCardImage extends StatelessWidget {
@@ -10,22 +11,22 @@ class ArticleCardImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (imageUrl == null) {
       return Container(
-        height: 150,
+        height: 120.h,
         width: double.infinity,
         color: context.colors.surfaceContainerHighest,
         child: Icon(
           Icons.image,
-          size: 50,
+          size: 50.r,
           color: context.colors.onSurfaceVariant,
         ),
       );
     }
 
     return ClipRRect(
-      borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
       child: Image.network(
         imageUrl!,
-        height: 150,
+        height: 120.h,
         width: double.infinity,
         fit: BoxFit.cover,
       ),

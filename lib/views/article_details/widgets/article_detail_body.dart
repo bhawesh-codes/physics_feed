@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
 import 'package:physics_feed/views/article_details/widgets/article_detail_content.dart';
 import 'package:physics_feed/views/article_details/widgets/article_detail_header.dart';
@@ -12,15 +13,15 @@ class ArticleDetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0.r),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ArticleDetailHeader(title: article.title ?? ""),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             ArticleDetailImage(imageUrl: article.featureImage),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             ArticleDetailContent(htmlContent: article.content),
           ],
         ),

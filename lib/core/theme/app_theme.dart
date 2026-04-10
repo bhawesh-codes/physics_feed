@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTheme {
   // 🔹 Light Color Scheme
@@ -39,17 +40,17 @@ class AppTheme {
       // ✅ Text Theme (consistent for both modes)
       textTheme: base.textTheme.copyWith(
         titleLarge: TextStyle(
-          fontSize: 24,
+          fontSize: 24.sp,
           fontWeight: FontWeight.bold,
           color: scheme.onSurface,
         ),
         titleMedium: TextStyle(
-          fontSize: 18,
+          fontSize: 18.sp,
           fontWeight: FontWeight.w500,
           color: scheme.onSurface,
         ),
-        bodyMedium: TextStyle(fontSize: 14, color: scheme.onSurface),
-        bodySmall: const TextStyle(fontSize: 12),
+        bodyMedium: TextStyle(fontSize: 14.sp, color: scheme.onSurface),
+        bodySmall: TextStyle(fontSize: 12.sp),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: scheme.primaryContainer,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/views/category/category_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -11,16 +12,17 @@ class CategoryView extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => CategoryViewmodel()..fetchCategory(),
       builder: (context, child) {
-       final isLoading = context.select<CategoryViewmodel, bool>(
+        final isLoading = context.select<CategoryViewmodel, bool>(
           (vm) => vm.isLoading,
         );
 
-        final error = context.select<CategoryViewmodel, String?>((vm) => vm.error);
+        final error = context.select<CategoryViewmodel, String?>(
+          (vm) => vm.error,
+        );
 
         final category = context.select<CategoryViewmodel, List?>(
           (vm) => vm.category,
         );
-
 
         return Scaffold(
           body: Builder(
@@ -49,7 +51,7 @@ class CategoryView extends StatelessWidget {
                 itemCount: category!.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(12.r),
                     child: GestureDetector(
                       onTap: () => context
                           .read<CategoryViewmodel>()
@@ -57,11 +59,11 @@ class CategoryView extends StatelessWidget {
                             slug: category[index]!.slug!,
                           ),
                       child: Container(
-                        height: 310,
+                        height: 245.h,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           border: Border.all(color: context.colors.outline),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Column(
                           children: [
@@ -69,34 +71,34 @@ class CategoryView extends StatelessWidget {
                                 ? Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(12),
+                                        top: Radius.circular(12.r),
                                       ),
                                       color: context
                                           .colors
                                           .surfaceContainerHighest,
                                     ),
-                                    height: 180,
+                                    height: 130.h,
                                     width: double.infinity,
                                     child: Icon(
                                       Icons.image,
-                                      size: 50,
+                                      size: 50.r,
                                       color: context.colors.onSurfaceVariant,
                                     ),
                                   )
                                 : ClipRRect(
                                     borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(12),
+                                      top: Radius.circular(12.r),
                                     ),
                                     child: Image.network(
                                       category[index]!.image ?? '',
-                                      height: 180,
+                                      height: 130.h,
                                       width: double.infinity,
                                       fit: BoxFit.fill,
                                     ),
                                   ),
 
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0.r),
                               child: Column(
                                 crossAxisAlignment: .start,
                                 children: [

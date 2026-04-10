@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/models/tag_filter_model.dart';
 import 'package:physics_feed/views/dashboard/widgets/my_appbar.dart';
@@ -55,7 +56,7 @@ class TagFilterView extends StatelessWidget {
               }
 
               return Padding(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.r),
                 child: ListView(
                   children: [
                     Text(

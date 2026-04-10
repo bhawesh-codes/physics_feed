@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/views/author/author_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -46,17 +47,17 @@ class AuthorView extends StatelessWidget {
                 );
               }
               return Padding(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.r),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Text("Author", style: context.textStyle.titleMedium),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       Text(
                         author![0].name ?? "No name",
                         style: context.titleLarge,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       Text('Description', style: context.textStyle.titleMedium),
                       Text(author[0].description ?? "No description"),
                     ],
