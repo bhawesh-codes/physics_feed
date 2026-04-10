@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
 
@@ -24,22 +23,29 @@ class ArticleCardImage extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-      // child: Image.network(
-      //   imageUrl!,
-      //   height: 150,
-      //   width: double.infinity,
-      //   fit: BoxFit.cover,
-      // ),
-      child: CachedNetworkImage(
+      child: Image.network(
+        imageUrl!,
         height: 150,
         width: double.infinity,
         fit: BoxFit.cover,
-        imageUrl: imageUrl!,
-        placeholder: (context, url) => CircularProgressIndicator(
-          padding: EdgeInsets.fromLTRB(160, 50, 160, 50),
-        ),
-        errorWidget: (context, url, error) => Icon(Icons.error),
       ),
+//       child:CachedNetworkImage(
+//   height: 150,
+//   width: double.infinity,
+//   fit: BoxFit.cover,
+//   imageUrl: imageUrl!,
+//   placeholder: (context, url) {
+//     debugPrint('Loading image: $url');  // add this
+//     return Padding(
+//       padding: const EdgeInsets.fromLTRB(160, 50, 160, 50),
+//       child: CircularProgressIndicator(),
+//     );
+//   },
+//   errorWidget: (context, url, error) {
+//     debugPrint('Image error [$url]: $error');  // add this
+//     return Icon(Icons.error);
+//   },
+// ),
     );
   }
 }
