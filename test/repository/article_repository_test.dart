@@ -3,9 +3,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:physics_feed/core/error/app_exception.dart';
+
 import 'package:physics_feed/models/article_detail_model.dart';
 import 'package:physics_feed/models/article_model.dart';
+import 'package:physics_feed/models/error_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 import 'package:physics_feed/services/article_api_client.dart';
 
@@ -55,16 +56,16 @@ void main() {
 
     test('throws AppException when ApiService throws AppException', () async {
       // ApiService already throws AppException — repository re-wraps it
-      when(mockApiService.getArticles(1)).thenThrow(AppException(message: 'Server error'));
+      when(mockApiService.getArticles(1)).thenThrow(ErrorModel(message: 'Server error'));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<AppException>()));
+      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
     });
 
     test('throws AppException when an unexpected error occurs', () async {
       // Simulates something slipping through (plain Exception)
       when(mockApiService.getArticles(1)).thenThrow(Exception('Unexpected'));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<AppException>()));
+      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
     });
 
     test('does not call fetchArticleDetail', () async {
@@ -111,11 +112,11 @@ void main() {
     test('throws AppException when ApiService throws AppException', () async {
       when(
         mockApiService.getArticleDetail(slug),
-      ).thenThrow(AppException(message: 'Not found'));
+      ).thenThrow(ErrorModel(message: 'Not found'));
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<AppException>()),
+        throwsA(isA<ErrorModel>()),
       );
     });
 
@@ -126,7 +127,7 @@ void main() {
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<AppException>()),
+        throwsA(isA<ErrorModel>()),
       );
     });
 

@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/models/article_detail_model.dart';
 import 'package:physics_feed/models/article_model.dart';
+import 'package:physics_feed/models/error_model.dart';
 import 'package:physics_feed/repository/article_repository.dart';
 import 'package:physics_feed/services/article_api_client.dart';
 
@@ -52,7 +52,7 @@ void main() {
         mockClient.getArticles(1),
       ).thenThrow(fakeDioException(DioExceptionType.connectionTimeout));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<AppException>()));
+      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
     });
 
     test('throws AppException on 500 server error', () async {
@@ -60,7 +60,7 @@ void main() {
         fakeDioException(DioExceptionType.badResponse, statusCode: 500),
       );
 
-      expect(() => repository.fetchArticles(), throwsA(isA<AppException>()));
+      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
     });
 
     test('throws AppException on no internet', () async {
@@ -68,13 +68,13 @@ void main() {
         mockClient.getArticles(1),
       ).thenThrow(fakeDioException(DioExceptionType.connectionError));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<AppException>()));
+      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
     });
 
     test('throws AppException on generic exception', () async {
       when(mockClient.getArticles(1)).thenThrow(Exception('Unexpected error'));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<AppException>()));
+      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
     });
   });
 
@@ -111,7 +111,7 @@ void main() {
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<AppException>()),
+        throwsA(isA<ErrorModel>()),
       );
     });
 
@@ -122,7 +122,7 @@ void main() {
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<AppException>()),
+        throwsA(isA<ErrorModel>()),
       );
     });
 
@@ -133,7 +133,7 @@ void main() {
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<AppException>()),
+        throwsA(isA<ErrorModel>()),
       );
     });
 
@@ -144,7 +144,7 @@ void main() {
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<AppException>()),
+        throwsA(isA<ErrorModel>()),
       );
     });
   });
