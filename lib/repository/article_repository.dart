@@ -44,36 +44,36 @@ class ArticleRepository implements ArticleRepositoryBase {
 }
 
   @override
-  Future<FilterArticleModel> fetchFilterArticle(String slug) {
+  Future<FilterArticleModel> fetchFilterArticle(String slug) async {
     try {
-      return _apiService.getFilterArticles(slug, 1);
+      return await _apiService.getFilterArticles(slug, 1);
     } catch (e) {
       throw ErrorHandler.handle(e);
     }
   }
   
   @override
-  Future<List<TagModel>> fetchTags() {
+  Future<List<TagModel>> fetchTags() async {
     try {
-      return _apiService.getTags();
+      return await _apiService.getTags();
     } catch (e) {
       throw ErrorHandler.handle(e);
     }
   }
   
   @override
-  Future<List<AuthorModel>> fetchAuthor() {
+  Future<List<AuthorModel>> fetchAuthor()async {
     try{
-      return _apiService.getAuthor();
+      return await _apiService.getAuthor();
     } catch (e) {
       throw ErrorHandler.handle(e);
     }
   }
   
   @override
-  Future<TagFilterModel> fetchTagFilter(String slug) {
+  Future<TagFilterModel> fetchTagFilter(String slug) async{
     try{
-      return _apiService.getTagFilter(slug, 1);
+      return await _apiService.getTagFilter(slug, 1);
     } catch (e) {
       throw ErrorHandler.handle(e);
     }
