@@ -1,4 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:physics_feed/core/theme/app_theme.dart';
 import 'package:physics_feed/core/theme/theme_viewmodel.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
@@ -6,7 +11,21 @@ import 'package:physics_feed/views/dashboard/dashboard_view.dart';
 import 'package:provider/provider.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 🔹 Initialize Firebase
+  await Firebase.initializeApp();
+
+  // 🔹 Capture Flutter framework errors
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+  // 🔹 Capture all uncaught async errors
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   setupLocator();
   runApp(const MyApp());
 }
@@ -14,7 +33,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

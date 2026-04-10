@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "729680949211",
+    "project_id": "physics-feeds",
+    "storage_bucket": "physics-feeds.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729680949211:android:dc36bab5587ab6ba26c1fe",
+        "android_client_info": {
+          "package_name": "com.bhawesh.physics_feed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTnJrLkWPIR5U04O6KwxkfbPNGJZNF0-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

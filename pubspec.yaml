@@ -41,8 +41,14 @@ dependencies:
   retrofit: ^4.9.2
   json_annotation: ^4.11.0
   cached_network_image: ^3.4.1
+  firebase_core: ^4.6.0
+  firebase_crashlytics: ^5.1.0
+  firebase_analytics: ^12.2.0
+ 
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   mockito: ^5.4.4
