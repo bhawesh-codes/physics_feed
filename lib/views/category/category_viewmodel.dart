@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/category_model.dart';
@@ -23,9 +22,6 @@ class CategoryViewmodel extends ChangeNotifier{
     try {
       _category = await _repository.fetchCategories();
       error = null;
-      
-    } on AppException catch (e) {
-      error = e.message;
     } catch (e) {
       _category = [];
       error = 'Failed to load category: $e';

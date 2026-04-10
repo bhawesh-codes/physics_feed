@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
@@ -23,8 +22,6 @@ class FilterArticleViewmodel extends ChangeNotifier {
     try {
       _filterArticle = await _repository.fetchFilterArticle(slug);
       error = null;
-    } on AppException catch (e) {
-      error = e.message;
     } catch (e) {
       _filterArticle = null;
       error = 'Failed to load filter article: $e';

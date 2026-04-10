@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:physics_feed/core/error/app_exception.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/tag_model.dart';
@@ -23,8 +22,6 @@ class TagViewmodel extends ChangeNotifier {
     try {
       _tags = await _repository.fetchTags();
       error = null;
-    } on AppException catch (e) {
-      error = e.message;
     } catch (e) {
       _tags = [];
       error = 'Failed to load tags: $e';
