@@ -1,0 +1,17 @@
+lane :beta do
+  root = File.expand_path("../..")
+  Dir.chdir(root) do
+    sh("flutter test")
+    sh("flutter test integration_test")
+    sh("flutter build apk --release")
+  end
+
+  firebase_app_distribution(
+    app: "1:729680949211:android:dc36bab5587ab6ba26c1fe",
+    firebase_cli_token: ENV["FIREBASE_TOKEN"],
+    android_artifact_type: "AAB",
+    android_artifact_path: "#{File.expand_path('../..')}/build/app/outputs/flutter-apk/app-release.apk",
+    testers: "bhaweshbaruwal3@gmail.com,scilent.killer10@gmail.com",
+    release_notes: "Beta build"
+  )
+end
