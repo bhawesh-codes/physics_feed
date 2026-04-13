@@ -1,17 +1,49 @@
 lane :beta do
   root = File.expand_path("../..")
+
   Dir.chdir(root) do
+    sh("flutter clean")
+    sh("flutter pub get")
+
+    # 🧪 Run tests FIRST
     sh("flutter test")
     sh("flutter test integration_test")
+  end
+
+  # 🔼 Increment version ONLY if tests pass
+  pubspec_path = File.join(root, "pubspec.yaml")
+  content = File.read(pubspec_path)
+
+  match = content.match(/version:\s*(\d+\.\d+\.\d+)\+(\d+)/)
+
+  version_name = match[1]
+  build_number = match[2].to_i + 1
+
+  new_version = "#{version_name}+#{build_number}"
+
+  updated_content = content.gsub(/version:\s*\d+\.\d+\.\d+\+\d+/, "version: #{new_version}")
+  File.write(pubspec_path, updated_content)
+
+  puts "✅ New version: #{new_version}"
+
+  # 🧹 Clean AGAIN before release build to remove integration_test from generated files
+  Dir.chdir(root) do
+    sh("flutter clean")
+    sh("flutter pub get")
+  end
+
+  # 🏗️ Build AFTER increment
+  Dir.chdir(root) do
     sh("flutter build apk --release")
   end
 
+  # 🚀 Upload
   firebase_app_distribution(
     app: "1:729680949211:android:dc36bab5587ab6ba26c1fe",
     firebase_cli_token: ENV["FIREBASE_TOKEN"],
-    android_artifact_type: "AAB",
-    android_artifact_path: "#{File.expand_path('../..')}/build/app/outputs/flutter-apk/app-release.apk",
+    android_artifact_type: "APK",
+    android_artifact_path: "#{root}/build/app/outputs/flutter-apk/app-release.apk",
     testers: "bhaweshbaruwal3@gmail.com,scilent.killer10@gmail.com",
-    release_notes: "Beta build"
+    release_notes: "Beta build #{new_version}"
   )
 end
