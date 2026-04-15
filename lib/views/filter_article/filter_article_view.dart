@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physics_feed/core/theme/theme_extension.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
 import 'package:physics_feed/views/dashboard/widgets/my_appbar.dart';
 import 'package:physics_feed/views/filter_article/filter_article_viewmodel.dart';
-import 'package:physics_feed/views/filter_article/widgets/article_list.dart'
-    show ArticleList;
+import 'package:physics_feed/views/filter_article/widgets/article_card.dart';
 import 'package:provider/provider.dart';
 
 class FilterArticleView extends StatelessWidget {
@@ -14,64 +14,57 @@ class FilterArticleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<FilterArticleViewmodel>(
-      create: (context) =>
-          FilterArticleViewmodel()..fetchFilterArticle(slug),
-      builder: (context, child) {
-       final isLoading = context.select<FilterArticleViewmodel, bool>(
-          (vm) => vm.isLoading,
-        );
-
-        final error = context.select<FilterArticleViewmodel, String?>((vm) => vm.error);
-
-        final filterArticle = context.select<FilterArticleViewmodel, FilterArticleModel?>(
-          (vm) => vm.filterArticle,
-        );
-
-        return Scaffold(
-          appBar: MyAppBar(),
-          body: Builder(
-            builder: (context) {
-              if (isLoading) {
-                return Center(
-                  child: CircularProgressIndicator(color: context.primaryColor),
-                );
-              }
-
-              if (error != null) {
-                return Center(
-                  child: Text(
-                    error,
-                    style: context.bodyMedium!.copyWith(color: Colors.red),
+      create: (context) => FilterArticleViewmodel(slug: slug),
+      child: Scaffold(
+        appBar: MyAppBar(),
+        body: Consumer<FilterArticleViewmodel>(
+          builder: (context, vm, child) => PagingListener(
+            controller: vm.pagingController,
+            builder: (context, state, fetchNextPage) =>
+                PagedListView<int, Result>(
+                  state: state,
+                  fetchNextPage: fetchNextPage,
+                  builderDelegate: PagedChildBuilderDelegate<Result>(
+                    itemBuilder: (context, article, index) => ArticleCard(
+                      filterArticle: article,
+                      onTap: () =>
+                          vm.navigateToDetail(slug: article.slug ?? ''),
+                    ),
+                    firstPageProgressIndicatorBuilder: (_) => Center(
+                      child: CircularProgressIndicator(
+                        color: context.primaryColor,
+                      ),
+                    ),
+                    newPageProgressIndicatorBuilder: (_) => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                    firstPageErrorIndicatorBuilder: (_) => Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            state.error?.toString() ?? "Something went wrong",
+                          ),
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: vm.pagingController.refresh,
+                            child: const Text('Retry'),
+                          ),
+                        ],
+                      ),
+                    ),
+                    noItemsFoundIndicatorBuilder: (_) =>
+                        const Center(child: Text('No articles found')),
+                    noMoreItemsIndicatorBuilder: (_) => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Center(child: Text("You're all caught up")),
+                    ),
                   ),
-                );
-              }
-
-              if (filterArticle == null ||
-                  filterArticle.articles == null ||
-                  filterArticle.articles!.results!.isEmpty) {
-                return Center(
-                  child: Text("No data", style: context.bodyMedium),
-                );
-              }
-
-              return Padding(
-                padding: const EdgeInsets.all(12),
-                child: ListView(
-                  children: [
-                    Text(
-                      'Articles under categorty ${filterArticle.name}',
-                      style: context.titleLarge,
-                    ),
-                    ArticleList(
-                      filterArticles: filterArticle.articles!.results!,
-                    ),
-                  ],
                 ),
-              );
-            },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
