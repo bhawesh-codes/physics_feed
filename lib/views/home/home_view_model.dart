@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/article_model.dart';
@@ -8,35 +9,33 @@ import 'package:physics_feed/views/article_details/article_detail_view.dart';
 class HomeViewModel extends ChangeNotifier {
   final _repository = sl<ArticleRepository>();
 
-  HomeViewModel();
-  // : _repository = repository ?? ArticleRepository();
+  int _totalPages = 1;
 
-  bool isLoading = false;
-  ArticleModel? _article;
-  ArticleModel? get article => _article;
+  late final PagingController<int, Result> pagingController;
 
-  String? error;
-  Future<void> fetchArticles() async {
-    isLoading = true;
-    error = null;
-    notifyListeners();
-    try {
-      _article = await _repository.fetchArticles();
-    } catch (e) {
-      error = 'Failed to load articles: $e';
-      _article = null;
-    }
-    isLoading = false;
-    notifyListeners();
+  HomeViewModel() {
+    pagingController = PagingController<int, Result>(
+      getNextPageKey: (state) {
+        final nextPage = (state.keys?.last ?? 0) + 1;
+        return nextPage > _totalPages ? null : nextPage;
+      },
+      fetchPage: (pageKey) async {
+        final articles = await _repository.fetchArticles(pageKey);
+        _totalPages = articles.pagination?.pages ?? 1;
+        return articles.results ?? [];
+      },
+    );
   }
-  
 
   void navigateToDetail({required String slug}) {
     AppRouter.navigatorKey.currentState?.push(
-      MaterialPageRoute(
-        builder: (_) => ArticleDetailView(slug: slug),
-      ),
+      MaterialPageRoute(builder: (_) => ArticleDetailView(slug: slug)),
     );
   }
-}
 
+  @override
+  void dispose() {
+    pagingController.dispose();
+    super.dispose();
+  }
+}

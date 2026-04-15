@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physics_feed/core/utils/app_router.dart';
 import 'package:physics_feed/core/utils/service_locator.dart';
 import 'package:physics_feed/models/filter_article_model.dart';
@@ -6,33 +7,38 @@ import 'package:physics_feed/repository/article_repository.dart';
 import 'package:physics_feed/views/article_details/article_detail_view.dart';
 
 class FilterArticleViewmodel extends ChangeNotifier {
-    final _repository = sl<ArticleRepository>();
+  final _repository = sl<ArticleRepository>();
+  final String slug; // ✅ slug passed in, not referenced from nowhere
 
-  FilterArticleViewmodel();
-  // : _repository = repository ?? ArticleRepository();
-  bool isLoading = false;
-  FilterArticleModel? _filterArticle;
-  FilterArticleModel? get filterArticle => _filterArticle;
+  int _totalPages = 1;
 
-  String? error;
-  Future<void> fetchFilterArticle(String slug) async {
-    isLoading = true;
-    error = null;
-    notifyListeners();
-    try {
-      _filterArticle = await _repository.fetchFilterArticle(slug);
-      error = null;
-    } catch (e) {
-      _filterArticle = null;
-      error = 'Failed to load filter article: $e';
-    }
-    isLoading = false;
-    notifyListeners();
+  late final PagingController<int, Result> pagingController;
+
+  FilterArticleViewmodel({required this.slug}) {
+    pagingController = PagingController(
+      getNextPageKey: (state) {
+        final nextPage = (state.keys?.last ?? 0) + 1;
+        return nextPage > _totalPages ? null : nextPage;
+      },
+      fetchPage: (pageKey) async {
+        // ✅ No try/catch — let it throw so PagingController captures it
+        final response = await _repository.fetchFilterArticle(slug, pageKey);
+        _totalPages = response.articles?.pagination?.pages ?? 1;
+        return response.articles?.results ??
+            []; 
+      },
+    );
   }
+
   void navigateToDetail({required String slug}) {
     AppRouter.navigatorKey.currentState?.push(
       MaterialPageRoute(builder: (_) => ArticleDetailView(slug: slug)),
     );
   }
-  
+
+  @override
+  void dispose() {
+    pagingController.dispose();
+    super.dispose();
+  }
 }
