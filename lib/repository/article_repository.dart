@@ -18,9 +18,9 @@ class ArticleRepository implements ArticleRepositoryBase {
     // : _apiService = apiService ?? ApiService();
 
   @override
-  Future<ArticleModel> fetchArticles() async {
+  Future<ArticleModel> fetchArticles(int page) async {
     try {
-      return await _apiService.getArticles(1);
+      return await _apiService.getArticles(page);
     } catch (e) {
       throw ErrorHandler.handle(e); // re-wraps if something slipped through
     }
@@ -44,9 +44,9 @@ class ArticleRepository implements ArticleRepositoryBase {
 }
 
   @override
-  Future<FilterArticleModel> fetchFilterArticle(String slug) async {
+  Future<FilterArticleModel> fetchFilterArticle(String slug, int page) async {
     try {
-      return await _apiService.getFilterArticles(slug, 1);
+      return await _apiService.getFilterArticles(slug, page);
     } catch (e) {
       throw ErrorHandler.handle(e);
     }
@@ -71,9 +71,9 @@ class ArticleRepository implements ArticleRepositoryBase {
   }
   
   @override
-  Future<TagFilterModel> fetchTagFilter(String slug) async{
+  Future<TagFilterModel> fetchTagFilter(String slug, int page) async{
     try{
-      return await _apiService.getTagFilter(slug, 1);
+      return await _apiService.getTagFilter(slug, page);
     } catch (e) {
       throw ErrorHandler.handle(e);
     }

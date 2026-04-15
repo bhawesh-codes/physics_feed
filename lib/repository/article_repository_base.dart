@@ -7,11 +7,11 @@ import 'package:physics_feed/models/tag_filter_model.dart';
 import 'package:physics_feed/models/tag_model.dart';
 
 abstract class ArticleRepositoryBase {
-  Future<ArticleModel> fetchArticles();
+  Future<ArticleModel> fetchArticles(int page);
   Future<ArticleDetailModel> fetchArticleDetail(String slug);
   Future<List<CategoryModel>> fetchCategories();
-  Future<FilterArticleModel> fetchFilterArticle(String slug);
+  Future<FilterArticleModel> fetchFilterArticle(String slug, int page);
   Future<List<TagModel>> fetchTags();
   Future<List<AuthorModel>> fetchAuthor();
-  Future<TagFilterModel> fetchTagFilter(String slug);
+  Future<TagFilterModel> fetchTagFilter(String slug, int page);
 }
