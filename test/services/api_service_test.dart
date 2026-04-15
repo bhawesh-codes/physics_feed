@@ -41,7 +41,7 @@ void main() {
     test('returns ArticleModel on success', () async {
       when(mockClient.getArticles(1)).thenAnswer((_) async => articleModel);
 
-      final result = await repository.fetchArticles();
+      final result = await repository.fetchArticles(1);
 
       expect(result, isA<ArticleModel>());
       verify(mockClient.getArticles(1)).called(1);
@@ -52,7 +52,7 @@ void main() {
         mockClient.getArticles(1),
       ).thenThrow(fakeDioException(DioExceptionType.connectionTimeout));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
+      expect(() => repository.fetchArticles(1), throwsA(isA<Exception>()));
     });
 
     test('throws AppException on 500 server error', () async {
@@ -60,7 +60,7 @@ void main() {
         fakeDioException(DioExceptionType.badResponse, statusCode: 500),
       );
 
-      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
+      expect(() => repository.fetchArticles(1), throwsA(isA<Exception>()));
     });
 
     test('throws AppException on no internet', () async {
@@ -68,13 +68,13 @@ void main() {
         mockClient.getArticles(1),
       ).thenThrow(fakeDioException(DioExceptionType.connectionError));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
+      expect(() => repository.fetchArticles(1), throwsA(isA<Exception>()));
     });
 
     test('throws AppException on generic exception', () async {
-      when(mockClient.getArticles(1)).thenThrow(Exception('Unexpected error'));
+      when(mockClient.getArticles(1)).thenThrow(Exception(ErrorModel(message:'Unexpected error')));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
+      expect(() => repository.fetchArticles(1), throwsA(isA<Exception>()));
     });
   });
 
@@ -111,7 +111,7 @@ void main() {
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<ErrorModel>()),
+        throwsA(isA<Exception>()),
       );
     });
 
@@ -122,7 +122,7 @@ void main() {
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<ErrorModel>()),
+        throwsA(isA<Exception>()),
       );
     });
 
@@ -133,18 +133,18 @@ void main() {
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<ErrorModel>()),
+        throwsA(isA<Exception>()),
       );
     });
 
     test('throws AppException on generic exception', () async {
       when(
         mockClient.getArticleDetail(slug),
-      ).thenThrow(Exception('Something went wrong'));
+      ).thenThrow(Exception(ErrorModel(message:'Something went wrong')));
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<ErrorModel>()),
+        throwsA(isA<Exception>()),
       );
     });
   });

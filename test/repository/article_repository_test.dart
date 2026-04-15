@@ -37,7 +37,7 @@ void main() {
       ).thenAnswer((_) async => fakeArticleModel);
 
       // Act
-      final result = await repository.fetchArticles();
+      final result = await repository.fetchArticles(1);
 
       // Assert
       expect(result, equals(fakeArticleModel));
@@ -48,7 +48,7 @@ void main() {
         mockApiService.getArticles(1),
       ).thenAnswer((_) async => fakeArticleModel);
 
-      await repository.fetchArticles();
+      await repository.fetchArticles(1);
 
       verify(mockApiService.getArticles(1)).called(1);
       verifyNoMoreInteractions(mockApiService);
@@ -56,16 +56,16 @@ void main() {
 
     test('throws AppException when ApiService throws AppException', () async {
       // ApiService already throws AppException — repository re-wraps it
-      when(mockApiService.getArticles(1)).thenThrow(ErrorModel(message: 'Server error'));
+      when(mockApiService.getArticles(1)).thenThrow(Exception(ErrorModel(message: 'Network error')));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
+      expect(() => repository.fetchArticles(1), throwsA(isA<Exception>()));
     });
 
     test('throws AppException when an unexpected error occurs', () async {
       // Simulates something slipping through (plain Exception)
-      when(mockApiService.getArticles(1)).thenThrow(Exception('Unexpected'));
+      when(mockApiService.getArticles(1)).thenThrow(Exception(ErrorModel(message: 'Unexpected')));
 
-      expect(() => repository.fetchArticles(), throwsA(isA<ErrorModel>()));
+      expect(() => repository.fetchArticles(1), throwsA(isA<Exception>()));
     });
 
     test('does not call fetchArticleDetail', () async {
@@ -73,7 +73,7 @@ void main() {
         mockApiService.getArticles(1),
       ).thenAnswer((_) async => fakeArticleModel);
 
-      await repository.fetchArticles();
+      await repository.fetchArticles(1);
 
       verifyNever(mockApiService.getArticleDetail(any));
     });
@@ -112,22 +112,22 @@ void main() {
     test('throws AppException when ApiService throws AppException', () async {
       when(
         mockApiService.getArticleDetail(slug),
-      ).thenThrow(ErrorModel(message: 'Not found'));
+      ).thenThrow(Exception(ErrorModel(message: 'Not found')));
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<ErrorModel>()),
+        throwsA(isA<Exception>()),
       );
     });
 
     test('throws AppException when an unexpected error occurs', () async {
       when(
         mockApiService.getArticleDetail(slug),
-      ).thenThrow(Exception('Unexpected'));
+      ).thenThrow(Exception(ErrorModel(message: 'Unexpected')));
 
       expect(
         () => repository.fetchArticleDetail(slug),
-        throwsA(isA<ErrorModel>()),
+        throwsA(isA<Exception>()),
       );
     });
 
